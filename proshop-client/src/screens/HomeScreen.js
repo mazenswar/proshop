@@ -4,11 +4,12 @@ import { Col, Row } from 'react-bootstrap';
 import Product from '../components/Product';
 import axios from 'axios';
 
+
 function HomeScreen() {
     const [products, setProducts] = useState([]);
     useEffect(() => {
         async function fetchProducts() {
-            const { data } = await axios.get('/api/products/');
+            const { data } = await axios.get('/products');
             setProducts(data);
         }
         fetchProducts();

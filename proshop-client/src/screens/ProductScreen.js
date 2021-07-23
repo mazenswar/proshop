@@ -3,19 +3,17 @@ import React, { useState, useEffect } from 'react'
 import { Col, Row, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Rating from '../components/Rating';
-import products from '../products';
 
 
 function ProductScreen({ match }) {
     const [product, setProduct] = useState({});
     useEffect(() => {
         async function fetchProduct() {
-            const { data } = await axios.get(`/api/products/${match.params.id}`)
+            const { data } = await axios.get(`/products/${match.params.id}`)
             setProduct(data);
         }
         fetchProduct()
-    }, [])
-
+    }, [match])
 
     return (
         <>
@@ -30,7 +28,7 @@ function ProductScreen({ match }) {
                             <h3>{product.name}</h3>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                            <Rating value={product.rating || 0} text={`${product.numReviews} reviews`} />
                         </ListGroup.Item>
                         <ListGroup.Item>
                             Price: ${product.price}
