@@ -1,13 +1,16 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
-import products from './data/products.js';
+// import products from './data/products.js';
 import colors from 'colors';
-
+import productRoutes from './routes/productRoutes.js'
+import userRoutes from './routes/userRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 
 const app = express();
-
+app.use(express.json());
 
 dotenv.config();
 
@@ -16,15 +19,16 @@ connectDB();
 app.get('/', (req, res) => {
     res.send('API is running');
 })
+app.use('/products', productRoutes)
+app.use('/users', userRoutes)
+app.use('/orders', orderRoutes)
 
-app.get('/products', (req, res) => {
-    res.json(products);
+app.get('/config/paypal', (req, res) => {
+    res.send(process.env.PAYPAL_CLIENT_ID)
 })
 
-app.get('/products/:id', (req, res) => {
-    const product = products.find(p => p._id === req.params.id);
-    res.json(product);
-})
+app.use(notFound)
+app.use(errorHandler)
 
 
 
