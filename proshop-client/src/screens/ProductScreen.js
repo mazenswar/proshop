@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { Col, Row, Image, ListGroup, Card, Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';

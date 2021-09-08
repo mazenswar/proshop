@@ -15,7 +15,7 @@ function HomeScreen() {
     const {products, error, loading} = productList
     useEffect(() => {
         dispatch(listProducts())
-    }, [])
+    }, [dispatch])
     return (
         <>
             <h1>Latest Products</h1>
